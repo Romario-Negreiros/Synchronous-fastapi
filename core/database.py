@@ -1,10 +1,11 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session as SyncSession
-from sqlalchemy import create_engine
-
+from sqlalchemy.engine import create_engine
+from sqlalchemy.engine.mock import MockConnection
 from core.configs import settings
 
-engine = create_engine(settings.DB_URL)
+engine: MockConnection = create_engine(settings.DB_URL)
+engine
 
 Session: SyncSession = sessionmaker(
     autocommit       = False,
