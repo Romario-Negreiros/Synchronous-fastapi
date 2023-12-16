@@ -1,6 +1,2 @@
-Lib
-Include
-Scripts
-__pycache__
-*.cfg
+venv
 *.env
