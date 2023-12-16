@@ -1,6 +1,6 @@
 from re import compile
 
-from sqlalchemy import Integer, String, Column
+from sqlalchemy import String, Column
 from pydantic import validator
 
 from core.configs import settings
@@ -8,9 +8,9 @@ from core.configs import settings
 class UserModel(settings.DBBaseModel):
     __tablename__ = "users"
     
-    cpf = Column(String(11), primary_key=True, unique=True)
-    name = Column(String(256), nullable=True)
-    password = Column(String(256), nullable=False)
+    cpf           = Column(String(11), primary_key=True, unique=True)
+    name          = Column(String(256), nullable=True)
+    password      = Column(String(256), nullable=False)
     
     @validator("cpf")
     def validate_cpf(cls, v: str):
