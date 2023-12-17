@@ -1,24 +1,28 @@
 from typing import Generator, Optional
 
 from fastapi import Depends, HTTPException, status
-from jose import jwt, JWTError
+from jose import jwt, JWTError  
 from sqlalchemy.orm.session import Session as SyncSession
 from sqlalchemy.engine import Result
 from sqlalchemy.future import select
+
 from pydantic import BaseModel
 
 from core.configs import settings
-from core.database import Session
 from core.auth import oauth2_schema
+from core.database import Session
 from models.__all__models import UserModel
 
 class TokenData(BaseModel):
     user_cpf: Optional[str] = None
 
-def get_session() -> SyncSession:
-    session: SyncSession = Session()
-
-    return session
+def get_session() -> Generator:
+    session = Session()
+    
+    try:
+        yield session
+    finally:
+        session.close()
     
 def get_current_user(
         session: SyncSession = Depends(get_session), 
