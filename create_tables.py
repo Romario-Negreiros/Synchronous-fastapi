@@ -1,5 +1,3 @@
-from sqlalchemy import MetaData
-
 from core.configs import settings
 from core.database import engine
 
