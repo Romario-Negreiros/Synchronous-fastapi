@@ -8,3 +8,4 @@ class UserModel(settings.DBBaseModel):
     cpf           = Column(String(11), primary_key=True, unique=True)
     name          = Column(String(256), nullable=True)
     password      = Column(String(256), nullable=False)
+    scopes        = Column(String(256), nullable=False)

@@ -7,6 +7,7 @@ class UserSchema(BaseModel):
     cpf: str
     name: Optional[str] = None
     password: str
+    scopes: str
     
     @validator("cpf")
     def validate_cpf(cls, v: str):
@@ -35,3 +36,4 @@ class UserSchema(BaseModel):
 class UserSchemaResponse(BaseModel):
     cpf: str
     name: Optional[str] = None
+    scopes: str
