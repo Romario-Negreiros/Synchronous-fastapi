@@ -1,11 +1,9 @@
-from typing import List
 from datetime import datetime
 
 from fastapi import APIRouter, status, Depends, HTTPException, Request
-from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session as SyncSession
 
-from schemas.doc_schema import DocSchema, DocSchemaCreate
+from schemas.doc_schema import DocSchemaCreate
 from schemas.user_schemas import UserSchemaResponse
 from core.deps import get_current_user, get_session
 from services.Scope import scope, ScopeError
