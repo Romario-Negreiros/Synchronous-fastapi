@@ -7,5 +7,5 @@ class DocModel(settings.DBBaseModel):
     
     id            = Column(Integer, primary_key=True, autoincrement=True)
     type          = Column(String(256))
-    owner         = Column(String(256))
+    owner         = Column(String(11))
     emissionDate  = Column(DATETIME)
