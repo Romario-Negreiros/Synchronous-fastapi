@@ -11,7 +11,6 @@ from services.Logger import logger
 
 router = APIRouter()
 
-
 # response_model=List[DocSchema]
 @router.get("/", status_code=status.HTTP_200_OK)
 def get_docs(
