@@ -54,8 +54,8 @@ def get_current_user(
                 detail="As credenciais não correspondem a algum usuário.",
             )
 
-        # result = (cpf, name, password)
-        user = {"cpf": result[0], "name": result[1]}
+        # result = (cpf, name, password, scopes)
+        user = {"cpf": result[0], "name": result[1], "scopes": result[3]}
         return user
     except:
         raise HTTPException(
