@@ -5,7 +5,6 @@ from core.database import Session
 from models.__all__models import LogModel
 from schemas.log_schemas import LogSchema
 
-
 class Logger:
     def save_log(self, full_log: str, log_level: str, issued_from: str) -> None:
         log = LogModel(
