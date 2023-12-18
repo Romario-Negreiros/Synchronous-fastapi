@@ -24,8 +24,8 @@ def authenticate(
         if not result:
             return None
 
-        # result = (cpf, name, password)
-        user = {"cpf": result[0], "name": result[1], "password": result[2]}
+        # result = (cpf, name, password, scopes)"
+        user = {"cpf": result[0], "name": result[1], "password": result[2], "scopes": result[3]}
 
         if not verify_password(password, user["password"]):
             return None
