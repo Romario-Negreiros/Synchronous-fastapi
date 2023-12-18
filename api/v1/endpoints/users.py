@@ -13,6 +13,9 @@ from schemas.user_schemas import UserSchema, UserSchemaResponse
 
 router = APIRouter()
 
+@router.get("/not_allowed", status_code=status.HTTP_200_OK)
+def not_allowed():
+    return "Você não tem acesso a esta operação!"
 
 @router.get(
     "/logged", status_code=status.HTTP_200_OK, response_model=UserSchemaResponse
@@ -31,11 +34,12 @@ def register(
     with session:
         try:
             session.execute(
-                "CALL sp_setUser(:param_cpf, :param_name, :param_password)",
+                "CALL sp_setUser(:param_cpf, :param_name, :param_password, :param_scopes)",
                 {
                     "param_cpf": newUser.cpf,
                     "param_name": newUser.name,
                     "param_password": generate_password_hash(newUser.password),
+                    "param_scopes": newUser.scopes
                 },
             )
             session.commit()
