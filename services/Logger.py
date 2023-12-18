@@ -7,7 +7,7 @@ from schemas.log_schemas import LogSchema
 
 
 class Logger:
-    def save_log(self, full_log: str, log_level: str, issued_from: str):
+    def save_log(self, full_log: str, log_level: str, issued_from: str) -> None:
         log = LogModel(
             full_log=full_log,
             log_level=log_level,
