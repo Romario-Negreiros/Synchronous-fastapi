@@ -37,7 +37,7 @@ def get_docs(
         )
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=None)
 def create_doc(
     newDoc: DocSchemaCreate,
     request: Request,
@@ -57,7 +57,7 @@ def create_doc(
                 },
             )
             session.commit()
-            return
+            return None
     except ScopeError as ex:
         return HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(ex))
     except Exception as ex:
