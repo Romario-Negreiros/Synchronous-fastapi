@@ -1,5 +1,5 @@
 DELIMITER //
-CREATE PROCEDURE sp_getDoc(IN param_id INTEGER)
+CREATE PROCEDURE sp_getDocById(IN param_id INTEGER)
 BEGIN
 	SELECT * FROM Docs WHERE (Docs.id = param_id);
 END // 
