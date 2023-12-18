@@ -28,8 +28,8 @@ def register(
     newUser: UserSchema,
     session: SyncSession = Depends(get_session),
 ):
-    try:
-        with session:
+    with session:
+        try:
             session.execute(
                 "CALL sp_setUser(:param_cpf, :param_name, :param_password)",
                 {
@@ -39,21 +39,21 @@ def register(
                 },
             )
             session.commit()
-        return newUser
-    except ValidationError as ex:
-        print(ex)
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Ocorreu um erro ao tentar realizar o registro.",
-        )
-    except Exception as ex:
-        # LOG EXCEPTION
-        print(ex)
-        session.rollback()
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Ocorreu um erro ao tentar realizar o registro.",
-        )
+            return newUser
+        except ValidationError as ex:
+            print(ex)
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Ocorreu um erro ao tentar realizar o registro.",
+            )
+        except Exception as ex:
+            # LOG EXCEPTION
+            print(ex)
+            session.rollback()
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Ocorreu um erro ao tentar realizar o registro.",
+            )
 
 
 @router.post("/login", status_code=status.HTTP_200_OK)
