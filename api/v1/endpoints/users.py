@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi import APIRouter, HTTPException, status, Depends, Request
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.responses import JSONResponse
 
@@ -10,6 +10,7 @@ from core.auth import authenticate, generate_jwt
 from core.deps import get_session, get_current_user
 from core.security import generate_password_hash
 from schemas.user_schemas import UserSchema, UserSchemaResponse
+from services.Logger import logger
 
 router = APIRouter()
 
@@ -29,6 +30,7 @@ def get_logged_user(logged_user=Depends(get_current_user)):
 )
 def register(
     newUser: UserSchema,
+    request: Request,
     session: SyncSession = Depends(get_session),
 ):
     with session:
@@ -51,8 +53,7 @@ def register(
                 detail="Ocorreu um erro ao tentar realizar o registro.",
             )
         except Exception as ex:
-            # LOG EXCEPTION
-            print(ex)
+            logger.save_log(full_log = str(ex), log_level = "ERROR", issued_from = request.url.path)
             session.rollback()
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -62,6 +63,7 @@ def register(
 
 @router.post("/login", status_code=status.HTTP_200_OK)
 def login(
+    request: Request,
     form_data: OAuth2PasswordRequestForm = Depends(),
     session: SyncSession = Depends(get_session),
 ):
@@ -83,8 +85,7 @@ def login(
         )
 
     except Exception as ex:
-        # LOG EXCEPTION
-        print(ex)
+        logger.save_log(full_log = str(ex), log_level = "ERROR", issued_from = request.url.path)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Ocorreu um erro ao tentar realizar o login.",
