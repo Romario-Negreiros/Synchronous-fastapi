@@ -14,10 +14,6 @@ from services.Logger import logger
 
 router = APIRouter()
 
-@router.get("/not_allowed", status_code=status.HTTP_200_OK)
-def not_allowed():
-    return "Você não tem acesso a esta operação!"
-
 @router.get(
     "/logged", status_code=status.HTTP_200_OK, response_model=UserSchemaResponse
 )
