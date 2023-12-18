@@ -1,7 +1,5 @@
 from typing import List
 
-from fastapi.responses import RedirectResponse
-
 from schemas.user_schemas import UserSchemaResponse
 
 class ScopeError(Exception):
