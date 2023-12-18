@@ -1,3 +1,4 @@
+from typing import List
 from datetime import datetime
 
 from core.database import Session
@@ -31,5 +32,17 @@ class Logger:
                 print(f"***** {ex} *****")
             finally:
                 session.close()
+                      
+    def get_logs(self, url_path: str) -> List[LogSchema]:
+        with Session() as session:
+            try:
+                results = session.execute("CALL sp_getLogs()").fetchall()
+                
+                return results
+            except Exception as ex:
+                logger.save_log(full_log = str(ex), log_level = "ERROR", issued_from = url_path)
+            finally:
+                session.close()
+            
                 
 logger = Logger()
