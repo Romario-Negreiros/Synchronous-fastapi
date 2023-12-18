@@ -38,9 +38,10 @@ def get_current_user(
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Não foi possível obter os dados do usuário através do token.",
+                headers={"WWW-Authenticate": "Bearer"}
             )
     except JWTError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Não foi possível autenticar a credencial.", headers={"WWW-Authenticate": "Bearer"})
     # Retrieve user data from database in token_data
     try:
         with session:
