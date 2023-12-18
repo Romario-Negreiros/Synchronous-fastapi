@@ -1,4 +1,5 @@
 from pydantic import BaseSettings
+from datetime import timedelta
 
 from sqlalchemy.orm import declarative_base
 
@@ -15,8 +16,7 @@ class Settings(BaseSettings):
     JWT_TYPE: str                    = "Bearer"
     JWT_SECRET: str                  = {os.getenv('JWT_SECRET')}
     ALGORITHM: str                   = 'HS256'
-    # 120 MINUTOS = 2 HORAS
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 120
+    ACCESS_TOKEN_EXPIRE_MINUTES: timedelta = timedelta(minutes=120)
     
     class Config:
         case_sensitive = True
