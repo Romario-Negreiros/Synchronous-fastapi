@@ -3,8 +3,6 @@ from typing import Generator, Optional
 from fastapi import Depends, HTTPException, status
 from jose import jwt, JWTError
 from sqlalchemy.orm.session import Session as SyncSession
-from sqlalchemy.engine import Result
-from sqlalchemy.future import select
 
 from core.configs import settings
 from core.auth import oauth2_schema
